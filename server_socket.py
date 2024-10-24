@@ -1,4 +1,7 @@
-import socket, client_socket
+import socket
+import client_socket
+import time
+import sys
 
 server_socket = socket.socket(socket.AF_INET, # задамем семейство протоколов 'Интернет' (INET)
                               socket.SOCK_STREAM, # задаем тип передачи данных 'потоковый' (TCP)
@@ -30,7 +33,7 @@ server_socket.listen(backlog)
 Как только количество установленных соединений в очереди достигнет 
 значения backlog, новые соединения приниматься не будут. 
 '''
-def start_server():
+def start_server(port=53210):
     while True:
         # Бесконечно обрабатываем входящие подключения
         client_socket, client_address = server_socket.accept()
@@ -50,9 +53,9 @@ def start_server():
 def running_programm():
     while True:
         user_input = input()
-        if user_input == "broadcast-server start":
+        if user_input in ["broadcast-server start", "start"]:
             start_server()
-        elif user_input == "broadcast-server connect":
+        elif user_input in ["broadcast-server connect", "connect"]:
             client_socket.connect_server()
 
 #Проверка активности сервера в командной строке:
